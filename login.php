@@ -9,13 +9,16 @@ if (isset($_POST['username'])){
 	$username = mysqli_real_escape_string($conn,$username);
 	$sifre = stripslashes($_REQUEST['password']);
 	$sifre = mysqli_real_escape_string($conn,$sifre);
+  $usertipi = stripslashes($_REQUEST['usertipi']);
+  $usertipi = mysqli_real_escape_string($conn,$usertipi);
 	//Checking is user existing in the database or not
         $query = "SELECT * FROM `user` WHERE username='$username'
-and sifre='".md5($sifre)."'";
+AND sifre='".md5($sifre)."' AND user_tipi='$usertipi'";
 	$result = mysqli_query($conn,$query);
 	$rows = mysqli_num_rows($result);
-        if($rows==1){
+        if($rows==1){    
 	    $_SESSION['username'] = $username;
+      $_SESSION['usertipi'] = $usertipi;
             // Redirect user to index.php
 	    header("Location: index.php");
          }else{
@@ -84,7 +87,15 @@ and sifre='".md5($sifre)."'";
 <h1 style="color:white;">Giriş</h1>
 <form action="login.php" method="post" name="login">
 <input type="text" class="form-control" name="username" placeholder="Kullanıcı Adı" required />
+<br>
 <input type="password" class="form-control" name="password" placeholder="Şifre" required />
+<br>
+<select name="usertipi" class="form-control" id="usertipi">
+  <option value="0">Öğrenci</option>
+  <option value="1">Öğretmen</option>
+  <option value="2">Admin</option>
+</select>
+<br>
 <input name="submit" class="w-100 btn btn-lg btn-primary" type="submit" value="Login" />
 </form>
     </div>

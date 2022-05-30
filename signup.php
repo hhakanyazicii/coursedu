@@ -119,7 +119,7 @@ h3 {
         $password = mysqli_real_escape_string($conn, $password);
         $usertipi = stripslashes($_REQUEST['usertipi']);
         $usertipi = mysqli_real_escape_string($conn,$usertipi);
-        $query    = "INSERT into `user` (username,ad, password, email, user_tipi)
+        $query    = "INSERT into `user` (username,ad, sifre, email, user_tipi)
                      VALUES ('$username','$ad', '" . md5($password) . "', '$email', '$usertipi')";
         $result   = mysqli_query($conn, $query);
         if ($result) {
